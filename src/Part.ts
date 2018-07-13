@@ -4,9 +4,6 @@ export enum PartType {
 }
 
 export interface Part {
-
     type: PartType;
     value: string;
-    position: number;
-    length: number;
 }

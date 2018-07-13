@@ -59,7 +59,7 @@ export class Block {
             }
         }
         for (let line of this.lines) {
-            for (let i = 0; i < line.parts.length; i++) {
+            for (let i = 0; i < line.parts.length - 1; i++) {
                 line.parts[i].value = extendToLength(line.parts[i].value, maxLength[i]);
             }
         }

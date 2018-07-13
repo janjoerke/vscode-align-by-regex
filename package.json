@@ -17,8 +17,18 @@
     "contributes": {
         "commands": [{
             "command": "align.by.regex",
-            "title": "Align by regular expression"
-        }]
+            "title": "Align by RegEx"
+        }],
+        "configuration": {
+            "type": "object",
+            "title": "Align by RegEx",
+            "properties": {
+                "align.by.regex.templates": {
+                    "type": "object",
+                    "description": "Stored RegEx templates."
+                }
+            }
+        }
     },
     "scripts": {
         "vscode:prepublish": "npm run compile",

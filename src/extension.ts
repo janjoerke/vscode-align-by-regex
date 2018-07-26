@@ -9,7 +9,7 @@ export function activate(context: vscode.ExtensionContext) {
     let alignByRegex = vscode.commands.registerTextEditorCommand('align.by.regex', async (textEditor: vscode.TextEditor, edit: vscode.TextEditorEdit, args: any[]) => {
         let templates = vscode.workspace.getConfiguration().get('align.by.regex.templates');
         let input = await vscode.window.showInputBox({ prompt: 'Enter regular expression or template name.', value: lastInput });
-        if (input !== undefined) {
+        if (input !== undefined && input.length > 0) {
             lastInput = input;
             if (templates !== undefined) {
                 let template = (<any>templates)[input];

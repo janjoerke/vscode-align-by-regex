@@ -5,11 +5,15 @@
     "version": "0.0.1",
     "publisher": "janjoerke",
     "license": "LICENSE.txt",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/janjoerke/vscode-align-by-regex.git"
+    },
     "engines": {
         "vscode": "^1.25.0"
     },
     "categories": [
-        "Other"
+        "Formatters"
     ],
     "activationEvents": [
         "onCommand:align.by.regex"

@@ -2,7 +2,7 @@
     "name": "align-by-regex",
     "displayName": "Align by RegEx",
     "description": "Aligns selected lines of text by a regular expression.",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "icon": "images/icon.png",
     "publisher": "janjoerke",
     "license": "LICENSE.txt",

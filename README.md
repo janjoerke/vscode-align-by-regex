@@ -9,9 +9,9 @@ With this extension multiple lines of text can be aligned by a regular expressio
 
 ## Examples
 
-!(images/example1.gif\)
+![Example 1](images/example1.gif)
 
-!(images/example2.gif\)
+![Example 2](images/example2.gif)
 
 ## Extension Settings
 

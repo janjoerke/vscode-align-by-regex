@@ -115,7 +115,7 @@ e..e`;
         assert(block.lines[1].parts.length === 3);
         assert(block.lines[1].parts[0].value === '    bb');
         assert(block.lines[1].parts[1].value === '.');
-        assert(block.lines[1].parts[2].value === 'bb ');
+        assert(block.lines[1].parts[2].value === 'bb');
     });
 
 });

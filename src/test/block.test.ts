@@ -200,4 +200,35 @@ d d(ddddddd)`;
         assert.deepEqual(block.lines[currentLine].parts.length, 3);
         assert.deepEqual(concatLineParts(block.lines[currentLine]), 'd d(ddddddd)');
     });
+
+    test("Ignore non-matching lines.", function() {
+        let text = `function blah() { "hi there" }
+# This function does amazing things the likes of which you have never seen.
+function longerfunc() { "hi there" }`;
+        let input = '\{';
+        let startLine = 0;
+
+        let blockUnaligned : Block = new Block(text, input, startLine, vscode.EndOfLine.LF);
+
+        let blockTrimmed = blockUnaligned.trim();
+
+        let block = blockTrimmed.align();
+
+        assert.deepEqual(block.lines.length, 3);
+
+        let currentLine = 0;
+        assert.deepEqual(block.lines[currentLine].number, currentLine);
+        assert.deepEqual(block.lines[currentLine].parts.length, 3);
+        assert.deepEqual(concatLineParts(block.lines[currentLine]), 'function blah()       { "hi there"}');
+
+        currentLine++;
+        assert.deepEqual(block.lines[currentLine].number, currentLine);
+        assert.deepEqual(block.lines[currentLine].parts.length, 3);
+        assert.deepEqual(concatLineParts(block.lines[currentLine]), '// This function does amazing things the likes of which you have never seen.');
+
+        currentLine++;
+        assert.deepEqual(block.lines[currentLine].number, currentLine);
+        assert.deepEqual(block.lines[currentLine].parts.length, 3);
+        assert.deepEqual(concatLineParts(block.lines[currentLine]), 'function longerfunc() { "hi there"}');
+    });
 });

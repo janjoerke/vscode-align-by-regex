@@ -182,22 +182,22 @@ d d(ddddddd)`;
 
         let currentLine = 0;
         assert.deepEqual(block.lines[currentLine].number, currentLine);
-        assert.deepEqual(block.lines[currentLine].parts.length, 2);
+        assert.deepEqual(block.lines[currentLine].parts.length, 3);
         assert.deepEqual(concatLineParts(block.lines[currentLine]), 'a    a(aaa )');
 
         currentLine++;
         assert.deepEqual(block.lines[currentLine].number, currentLine);
-        assert.deepEqual(block.lines[currentLine].parts.length, 2);
+        assert.deepEqual(block.lines[currentLine].parts.length, 3);
         assert.deepEqual(concatLineParts(block.lines[currentLine]), 'b   b(bbbb )');
 
         currentLine++;
         assert.deepEqual(block.lines[currentLine].number, currentLine);
-        assert.deepEqual(block.lines[currentLine].parts.length, 2);
+        assert.deepEqual(block.lines[currentLine].parts.length, 3);
         assert.deepEqual(concatLineParts(block.lines[currentLine]), 'c  c(c     )');
 
         currentLine++;
         assert.deepEqual(block.lines[currentLine].number, currentLine);
-        assert.deepEqual(block.lines[currentLine].parts.length, 2);
+        assert.deepEqual(block.lines[currentLine].parts.length, 3);
         assert.deepEqual(concatLineParts(block.lines[currentLine]), 'd d(ddddddd)');
     });
 });

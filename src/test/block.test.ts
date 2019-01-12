@@ -223,7 +223,7 @@ function longerfunc() { "hi there" }`;
 
         currentLine++;
         assert.deepEqual(block.lines[currentLine].number, currentLine);
-        assert.deepEqual(block.lines[currentLine].parts.length, 3);
+        assert.deepEqual(block.lines[currentLine].parts.length, 1);
         assert.deepEqual(concatLineParts(block.lines[currentLine]), '// This function does amazing things the likes of which you have never seen.');
 
         currentLine++;

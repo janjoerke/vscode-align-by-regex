@@ -132,7 +132,15 @@ I'm, I'm, I'm hunting, looking for a come up
 This is fucking awesome.`;
         let input = '\'';
         let startLine = 0;
-        let block : Block = new Block(text, input, startLine, vscode.EndOfLine.LF).trim().align();
+
+        /* regex partioning appears to work normally */
+        let blockUnaligned : Block = new Block(text, input, startLine, vscode.EndOfLine.LF);
+        
+        /* this is where the spacing on the last part goes away */
+        let blockTrimmed = blockUnaligned.trim();
+        
+        /* this is probably fine again */
+        let block = blockTrimmed.align();
         
         assert.deepEqual(block.lines.length, 4);
         

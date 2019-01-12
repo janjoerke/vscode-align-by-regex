@@ -1,4 +1,4 @@
-import { Line } from './Line';
+import { Line } from './line';
 import { Part, PartType } from './Part';
 import { trimEndButOne, trimButOne, trimStartButOne, extendToLength, trimEnd } from './string-utils';
 import * as vscode from 'vscode';

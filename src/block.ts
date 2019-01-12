@@ -50,13 +50,16 @@ export class Block {
     }
 
     align(): Block {
-        let maxLength: number[] = [];
+        let nLines : number = this.lines.length;
+
+        /* create array with the right size and initialize array with 0 */
+        let maxLength : number[] = Array(nLines).fill(0);
         for (let line of this.lines) {
-            for (let i = 0; i < line.parts.length; i++) {
-                if(maxLength.length < i + 1) {
-                    maxLength.push(0);
+            // no match, only one part => ignore line in max length calculation
+            if (line.parts.length > 1) {
+                for (let i = 0; i < line.parts.length; i++) {
+                    maxLength[i] = Math.max(maxLength[i], line.parts[i].value.length);
                 }
-                maxLength[i] = Math.max(maxLength[i], line.parts[i].value.length);
             }
         }
         for (let line of this.lines) {

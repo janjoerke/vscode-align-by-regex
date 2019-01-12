@@ -146,7 +146,7 @@ This is fucking awesome.`;
         let currentLine = 0;
         assert.deepEqual(block.lines[currentLine].number, currentLine);
         assert.deepEqual(block.lines[currentLine].parts.length, 3);
-        assert.deepEqual(concatLineParts(block.lines[currentLine]), 'I                                   \'m gonna pop some tags');
+        assert.deepEqual(concatLineParts(block.lines[currentLine]), 'I\'m gonna pop some tags');
 
         currentLine++;
         assert.deepEqual(block.lines[currentLine].number, currentLine);
@@ -156,7 +156,7 @@ This is fucking awesome.`;
         currentLine++;
         assert.deepEqual(block.lines[currentLine].number, currentLine);
         assert.deepEqual(block.lines[currentLine].parts.length, 7);
-        assert.deepEqual(concatLineParts(block.lines[currentLine]), 'I                                   \'m, I                 \'m, I\'m hunting, looking for a come up');
+        assert.deepEqual(concatLineParts(block.lines[currentLine]), 'I\'m, I                 \'m, I\'m hunting, looking for a come up');
 
         currentLine++;
         assert.deepEqual(block.lines[currentLine].number, currentLine);
@@ -219,16 +219,16 @@ function longerfunc() { "hi there" }`;
         let currentLine = 0;
         assert.deepEqual(block.lines[currentLine].number, currentLine);
         assert.deepEqual(block.lines[currentLine].parts.length, 3);
-        assert.deepEqual(concatLineParts(block.lines[currentLine]), 'function blah()       { "hi there"}');
+        assert.deepEqual(concatLineParts(block.lines[currentLine]), 'function blah()       { "hi there" }');
 
         currentLine++;
         assert.deepEqual(block.lines[currentLine].number, currentLine);
         assert.deepEqual(block.lines[currentLine].parts.length, 1);
-        assert.deepEqual(concatLineParts(block.lines[currentLine]), '// This function does amazing things the likes of which you have never seen.');
+        assert.deepEqual(concatLineParts(block.lines[currentLine]), '# This function does amazing things the likes of which you have never seen.');
 
         currentLine++;
         assert.deepEqual(block.lines[currentLine].number, currentLine);
         assert.deepEqual(block.lines[currentLine].parts.length, 3);
-        assert.deepEqual(concatLineParts(block.lines[currentLine]), 'function longerfunc() { "hi there"}');
+        assert.deepEqual(concatLineParts(block.lines[currentLine]), 'function longerfunc() { "hi there" }');
     });
 });

@@ -41,7 +41,8 @@ export class Block {
                 } else if (i < line.parts.length - 1) {
                     part.value = trimButOne(part.value);
                 } else {
-                    part.value = trimEnd(trimStartButOne(part.value));
+                    let intermediate = trimStartButOne(part.value)
+                    part.value = trimEnd(intermediate);
                 }
             }
         }

@@ -157,7 +157,7 @@ This is fucking awesome.`;
         currentLine++;
         assert.deepEqual(block.lines[currentLine].number, 2);
         assert.deepEqual(block.lines[currentLine].parts.length, 7);
-        assert.deepEqual(concatLineParts(block.lines[currentLine]), 'I                                   \'m, I                \'m, I\'m hunting, looking for a come up');
+        assert.deepEqual(concatLineParts(block.lines[currentLine]), 'I                                   \'m, I                 \'m, I\'m hunting, looking for a come up');
         
         currentLine++;
         assert.deepEqual(block.lines[currentLine].number, 3);

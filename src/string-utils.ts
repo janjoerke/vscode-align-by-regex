@@ -7,7 +7,7 @@ export function trimStartButOne(value: string): string {
 }
 
 export function trimEnd(value: string): string {
-    return value.replace(/(.*[^\s])\s+/, '$1');
+    return value.replace(/(.*[^\s])\s+$/, '$1');
 }
 
 export function trimEndButOne(value: string): string {

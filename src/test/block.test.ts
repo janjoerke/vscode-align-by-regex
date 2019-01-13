@@ -231,4 +231,35 @@ function longerfunc() { "hi there" }`;
         assert.deepEqual(block.lines[currentLine].parts.length, 3);
         assert.deepEqual(concatLineParts(block.lines[currentLine]), 'function longerfunc() { "hi there" }');
     });
+
+
+    test("Test tab-size awareness", function() {
+        /* get editor tab size */
+        let tabSize : number | undefined = vscode.workspace.getConfiguration('editor', null).get('tabSize');
+
+        /* check that we actually got a tab size and that it isn't set to 1, otherwise the test is pointless. */
+        if (tabSize === undefined || tabSize === 1) {
+            assert(false, "Configuration editor.tabSize undefined or 1, can't execute test!");
+            return;
+        }
+
+        /* exact amount of spaces we should have at this tab size for proper alignment */
+        let tabSizeSpaces = Array(tabSize).fill(' ').join('');
+        
+        let text = `a.
+\tb.`;
+        let input = '\\.';
+        let startLine = 0;
+
+        let blockUnaligned : Block = new Block(text, input, startLine, vscode.EndOfLine.LF);
+
+        let blockTrimmed = blockUnaligned.trim();
+
+        let block = blockTrimmed.align();
+
+        assert.deepEqual(block.lines.length, 2);
+
+        assert.deepEqual(concatLineParts(block.lines[0]), 'a' + tabSizeSpaces + '.');
+        assert.deepEqual(concatLineParts(block.lines[1]), '\tb.');
+    });
 });

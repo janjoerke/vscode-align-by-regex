@@ -21,6 +21,15 @@ export function trimButOne(value: string): string {
     return result;
 }
 
-export function extendToLength(value: string, length: number): string {
-    return value + ' '.repeat(Math.max(0, length - value.length));
+export function extendToLength(value: string, length: number, tabSize : number): string {
+    return value + ' '.repeat(Math.max(0, length - tabAwareLength(value, tabSize)));
+}
+
+export function tabAwareLength(value: string, tabSize: number) : number {
+    var length = 0;
+    for (let idx = 0; idx < value.length; ++idx) {
+        length += value.charAt(idx) === "\t" ? tabSize : 1;
+    }
+
+    return length;
 }

@@ -1,6 +1,6 @@
 import { Line } from './line';
 import { Part, PartType } from './Part';
-import { tabAwareLength, trimEndButOne, trimButOne, trimStartButOne, extendToLength, trimEnd } from './string-utils';
+import { checkedRegex, tabAwareLength, trimEndButOne, trimButOne, trimStartButOne, extendToLength, trimEnd } from './string-utils';
 import * as vscode from 'vscode';
 
 export class Block {
@@ -15,20 +15,24 @@ export class Block {
             splitString = '\n';
         }
         let textLines = text.split(splitString);
-        let regex = new RegExp(input, 'g');
-        for (let i = 0; i < textLines.length; i++) {
-            let lineText = textLines[i];
-            let lineObject = { number: startLine + i, parts: [] as Part[] };
-            let result;
-            let textStartPosition = 0;
-            while ((result = regex.exec(lineText)) !== null) {
-                let regexStartPosition = regex.lastIndex - result[0].length;
-                lineObject.parts.push({ type: PartType.Text, value: lineText.substring(textStartPosition, regexStartPosition) });
-                lineObject.parts.push({ type: PartType.Regex, value: result[0] });
-                textStartPosition = regex.lastIndex;
+        let regex = checkedRegex(input);
+
+        /* basic protection from bad regexes */
+        if (regex !== undefined) {
+            for (let i = 0; i < textLines.length; i++) {
+                let lineText = textLines[i];
+                let lineObject = { number: startLine + i, parts: [] as Part[] };
+                let result;
+                let textStartPosition = 0;
+                while ((result = regex.exec(lineText)) !== null) {
+                    let regexStartPosition = regex.lastIndex - result[0].length;
+                    lineObject.parts.push({ type: PartType.Text, value: lineText.substring(textStartPosition, regexStartPosition) });
+                    lineObject.parts.push({ type: PartType.Regex, value: result[0] });
+                    textStartPosition = regex.lastIndex;
+                }
+                lineObject.parts.push({ type: PartType.Text, value: lineText.substring(textStartPosition, lineText.length) });
+                this.lines.push(lineObject);
             }
-            lineObject.parts.push({ type: PartType.Text, value: lineText.substring(textStartPosition, lineText.length) });
-            this.lines.push(lineObject);
         }
     }
 

@@ -33,3 +33,11 @@ export function tabAwareLength(value: string, tabSize: number) : number {
 
     return length;
 }
+
+export function checkedRegex(input: string) : RegExp | undefined {
+    try {
+        return new RegExp(input, 'g');
+    } catch(e) {
+        return undefined;
+    }
+}

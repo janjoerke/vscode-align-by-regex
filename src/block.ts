@@ -62,10 +62,17 @@ export class Block {
             tabSize = 1;
         }
 
-        let nLines : number = this.lines.length;
+        /* get maximum number of parts */
+        let maxNrParts : number = 1;
+        for (let idx = 0; idx < this.lines.length; ++idx) {
+            let len = this.lines[idx].parts.length;
+            if (len > maxNrParts) {
+                maxNrParts = len;
+            }
+        }
 
         /* create array with the right size and initialize array with 0 */
-        let maxLength : number[] = Array(nLines).fill(0);
+        let maxLength : number[] = Array(maxNrParts).fill(0);
         for (let line of this.lines) {
             // no match, only one part => ignore line in max length calculation
             if (line.parts.length > 1) {

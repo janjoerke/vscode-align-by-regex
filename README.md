@@ -19,7 +19,19 @@ This extension contributes the following settings:
 
 * `align.by.regex.templates`: Map which can hold user specified regular expression templates (i.e. `"align.by.regex.templates": { "abc": "=|,|:"}` ).
 
+## Contributors
+
+* [Carl](https://github.com/softwareape)
+
 ## Release Notes
+
+### 1.0.2
+
+Multiple alignment isses have been fixed.
+
+### 1.0.1
+
+Minor Bugfixes.
 
 ### 1.0.0
 

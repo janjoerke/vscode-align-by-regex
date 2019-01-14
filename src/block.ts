@@ -1,6 +1,6 @@
-import { Line } from './Line';
+import { Line } from './line';
 import { Part, PartType } from './Part';
-import { trimEndButOne, trimButOne, trimStartButOne, extendToLength, trimEnd } from './string-utils';
+import { tabAwareLength, trimEndButOne, trimButOne, trimStartButOne, extendToLength, trimEnd } from './string-utils';
 import * as vscode from 'vscode';
 
 export class Block {
@@ -41,7 +41,8 @@ export class Block {
                 } else if (i < line.parts.length - 1) {
                     part.value = trimButOne(part.value);
                 } else {
-                    part.value = trimEnd(trimStartButOne(part.value));
+                    let intermediate = trimStartButOne(part.value);
+                    part.value = trimEnd(intermediate);
                 }
             }
         }
@@ -49,18 +50,33 @@ export class Block {
     }
 
     align(): Block {
-        let maxLength: number[] = [];
+        /* get editor tab size */
+        let tabSize : number | undefined = vscode.workspace.getConfiguration('editor', null).get('tabSize');
+
+        /* check that we actually got a valid tab size and that it isn't set to a value < 1. */
+        if (tabSize === undefined || tabSize < 1) {
+            /* give helpful error message on console */
+            console.log('Error [Align by Regex]: Invalid tab size setting "editor.tabSize" for alignment.');
+
+            /* assume tab size == 1 if tab size is missing */
+            tabSize = 1;
+        }
+
+        let nLines : number = this.lines.length;
+
+        /* create array with the right size and initialize array with 0 */
+        let maxLength : number[] = Array(nLines).fill(0);
         for (let line of this.lines) {
-            for (let i = 0; i < line.parts.length; i++) {
-                if(maxLength.length < i + 1) {
-                    maxLength.push(0);
+            // no match, only one part => ignore line in max length calculation
+            if (line.parts.length > 1) {
+                for (let i = 0; i < line.parts.length; i++) {
+                    maxLength[i] = Math.max(maxLength[i], tabAwareLength(line.parts[i].value, tabSize));
                 }
-                maxLength[i] = Math.max(maxLength[i], line.parts[i].value.length);
             }
         }
         for (let line of this.lines) {
             for (let i = 0; i < line.parts.length - 1; i++) {
-                line.parts[i].value = extendToLength(line.parts[i].value, maxLength[i]);
+                line.parts[i].value = extendToLength(line.parts[i].value, maxLength[i], tabSize);
             }
         }
         return this;

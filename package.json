@@ -21,15 +21,19 @@
     ],
     "main": "./out/extension",
     "contributes": {
-        "commands": [{
-            "command": "align.by.regex",
-            "title": "Align by RegEx"
-        }],
-        "keybindings": [{
-            "command": "align.by.regex",
-            "key": "alt+shift+a",
-            "when": "editorHasSelection"
-        }],
+        "commands": [
+            {
+                "command": "align.by.regex",
+                "title": "Align by RegEx"
+            }
+        ],
+        "keybindings": [
+            {
+                "command": "align.by.regex",
+                "key": "alt+shift+a",
+                "when": "editorHasSelection"
+            }
+        ],
         "configuration": {
             "type": "object",
             "title": "Align by RegEx",

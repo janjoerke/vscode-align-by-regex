@@ -22,12 +22,19 @@ export class Block {
             for (let i = 0; i < textLines.length; i++) {
                 let lineText = textLines[i];
                 let lineObject = { number: startLine + i, parts: [] as Part[] };
-                let result;
+
+                /* get all matches at once */
                 let textStartPosition = 0;
-                while ((result = regex.exec(lineText)) !== null) {
-                    let regexStartPosition = regex.lastIndex - result[0].length;
+                let result;
+                while (result = regex.exec(lineText)) {
+                    let matchedSep = result[0]
+                    if (matchedSep === "") {
+                        /* if the regex return 0 length matches, e.g. the '|' operator, stop pushing line objects */
+                        break;
+                    }
+                    let regexStartPosition = regex.lastIndex - matchedSep.length;
                     lineObject.parts.push({ type: PartType.Text, value: lineText.substring(textStartPosition, regexStartPosition) });
-                    lineObject.parts.push({ type: PartType.Regex, value: result[0] });
+                    lineObject.parts.push({ type: PartType.Regex, value: matchedSep });
                     textStartPosition = regex.lastIndex;
                 }
                 lineObject.parts.push({ type: PartType.Text, value: lineText.substring(textStartPosition, lineText.length) });

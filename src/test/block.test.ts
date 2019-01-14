@@ -286,7 +286,6 @@ It|is|not|aligned`;
         let input = '|'; /* This should normally be escaped */
         let startLine = 0;
 
-        /* CAUSES infinite loop when uncommented!
         let blockUnaligned : Block = new Block(text, input, startLine, vscode.EndOfLine.LF);
 
         let blockTrimmed = blockUnaligned.trim();
@@ -295,7 +294,8 @@ It|is|not|aligned`;
 
         assert.deepEqual(block.lines.length, 2);
 
-        assert.deepEqual(concatLineParts(block.lines[0]), 'I |have|a  |table');
-        assert.deepEqual(concatLineParts(block.lines[1]), 'It|is  |not|aligned');*/
+        /* expect unchanged output */
+        assert.deepEqual(concatLineParts(block.lines[0]), 'I|have|a|table');
+        assert.deepEqual(concatLineParts(block.lines[1]), 'It|is|not|aligned');
     });
 });

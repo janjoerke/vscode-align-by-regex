@@ -232,7 +232,6 @@ function longerfunc() { "hi there" }`;
         assert.deepEqual(concatLineParts(block.lines[currentLine]), 'function longerfunc() { "hi there" }');
     });
 
-
     test("Test tab-size awareness", function() {
         /* get editor tab size */
         let tabSize : number | undefined = vscode.workspace.getConfiguration('editor', null).get('tabSize');
@@ -261,5 +260,23 @@ function longerfunc() { "hi there" }`;
 
         assert.deepEqual(concatLineParts(block.lines[0]), 'a' + tabSizeSpaces + '.');
         assert.deepEqual(concatLineParts(block.lines[1]), '\tb.');
+    });
+
+    test("Markdown table", function() {
+        let text = `I|have|a|table
+It|is|not|aligned`;
+        let input = '\\|';
+        let startLine = 0;
+
+        let blockUnaligned : Block = new Block(text, input, startLine, vscode.EndOfLine.LF);
+
+        let blockTrimmed = blockUnaligned.trim();
+
+        let block = blockTrimmed.align();
+
+        assert.deepEqual(block.lines.length, 2);
+
+        assert.deepEqual(concatLineParts(block.lines[0]), 'I |have|a  |table');
+        assert.deepEqual(concatLineParts(block.lines[1]), 'It|is  |not|aligned');
     });
 });

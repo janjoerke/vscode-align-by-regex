@@ -22,10 +22,10 @@ export function activate(context: vscode.ExtensionContext) {
                 let textDocument = textEditor.document;
                 
                 // Don't select last line, if no character of line is selected.
-                let endLine = selection.end.line
-                let endPosition = selection.end
-                if(endPosition.character == 0) {
-                    endLine--
+                let endLine = selection.end.line;
+                let endPosition = selection.end;
+                if(endPosition.character === 0) {
+                    endLine--;
                 }
                 
                 let range = new vscode.Range(new vscode.Position(selection.start.line, 0), new vscode.Position(endLine, textDocument.lineAt(endLine).range.end.character));

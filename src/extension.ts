@@ -20,7 +20,15 @@ export function activate(context: vscode.ExtensionContext) {
             let selection: vscode.Selection = textEditor.selection;
             if (!selection.isEmpty) {
                 let textDocument = textEditor.document;
-                let range = new vscode.Range(new vscode.Position(selection.start.line, 0), new vscode.Position(selection.end.line, textDocument.lineAt(selection.end.line).range.end.character));
+                
+                // Don't select last line, if no character of line is selected.
+                let endLine = selection.end.line
+                let endPosition = selection.end
+                if(endPosition.character == 0) {
+                    endLine--
+                }
+                
+                let range = new vscode.Range(new vscode.Position(selection.start.line, 0), new vscode.Position(endLine, textDocument.lineAt(endLine).range.end.character));
                 let text = textDocument.getText(range);
                 let block: Block = new Block(text, input, selection.start.line, textDocument.eol).trim().align();
                 await textEditor.edit(e => {

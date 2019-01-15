@@ -298,4 +298,23 @@ It|is|not|aligned`;
         assert.deepEqual(concatLineParts(block.lines[0]), 'I|have|a|table');
         assert.deepEqual(concatLineParts(block.lines[1]), 'It|is|not|aligned');
     });
+
+    test("Unexpected Alignment 2", function() {
+        let text = `a(123) // 123
+bb(45)  // 45
+ccc(6)   // 6`;
+        let input = '\\('; 
+        let startLine = 0;
+
+        let blockUnaligned : Block = new Block(text, input, startLine, vscode.EndOfLine.LF);
+
+        let blockTrimmed = blockUnaligned.trim();
+
+        let block = blockTrimmed.align();
+
+        assert.deepEqual(block.lines.length, 3);
+        assert.deepEqual(concatLineParts(block.lines[0]), 'a  (123) // 123');
+        assert.deepEqual(concatLineParts(block.lines[1]), 'bb (45)  // 45');
+        assert.deepEqual(concatLineParts(block.lines[2]), 'ccc(6)   // 6');
+    });
 });

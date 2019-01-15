@@ -27,7 +27,7 @@ export class Block {
                 let textStartPosition = 0;
                 let result;
                 while (result = regex.exec(lineText)) {
-                    let matchedSep = result[0]
+                    let matchedSep = result[0];
                     if (matchedSep === "") {
                         /* if the regex return 0 length matches, e.g. the '|' operator, stop pushing line objects */
                         break;

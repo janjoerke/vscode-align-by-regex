@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.0.4
+
+Fixed an error which could lead to missing spaces in some cases.
+
 ## 1.0.3
 
 Fixed an error which could lead to an infinite loop.
